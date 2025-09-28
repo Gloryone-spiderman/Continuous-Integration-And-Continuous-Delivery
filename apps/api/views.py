@@ -1,8 +1,5 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from django.http import HttpResponse
 
 
-class HelloWorld(APIView):
-    def get(self, request, ):
-        return Response({'message': 'Hello, World!'})
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
