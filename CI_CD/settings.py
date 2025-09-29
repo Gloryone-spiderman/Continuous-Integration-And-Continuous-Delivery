@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 此后添加应用
     'rest_framework',
-    'apps.api',
+    'api',
 ]
 
 MIDDLEWARE = [
