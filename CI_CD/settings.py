@@ -16,8 +16,10 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # 将 apps 目录添加到 Python 路径
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -40,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 此后添加应用
     'rest_framework',
-    'apps.api.apps.ApiConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -104,9 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
