@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from .models import Question, Choice
+from django.template import loader
 
 
 # def index(request):
@@ -7,8 +8,9 @@ from .models import Question, Choice
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    output = ",".join(q.name for q in latest_question_list)
-    return HttpResponse(output)
+    template = loader.get_template("polls/index.html")
+    context = {"latest_question_list": latest_question_list}
+    return HttpResponse(template.render(context, request))
 
 
 # 符合django视图的格式，含有HttpResponse才能被django识别为视图函数
