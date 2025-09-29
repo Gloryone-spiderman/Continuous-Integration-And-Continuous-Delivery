@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from .models import Question, Choice
-from django.template import loader
+from django.shortcuts import render
 
 
 # def index(request):
@@ -13,13 +13,18 @@ from django.template import loader
 #     output = ", ".join([q.name for q in latest_question_list])
 #     return HttpResponse(output)
 
+# from django.template import loader
+# def index(request):
+#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
+#     template = loader.get_template("api/index.html")
+#     context = {"latest_question_list": latest_question_list}
+#     return HttpResponse(template.render(context, request))
 
+# 更新视图函数,使用django.shortcuts的render,直接省略HttpResponse
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template("api/index.html")
+    latest_question_list = Question.objects.order_by("-pub_date")[:5]
     context = {"latest_question_list": latest_question_list}
-    return HttpResponse(template.render(context, request))
-
+    return render(request, "api/index.html", context)
 
 # 符合django视图的格式，含有HttpResponse才能被django识别为视图函数
 def detail(request, question_id):
