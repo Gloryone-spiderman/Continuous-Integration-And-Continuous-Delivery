@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .models import Question, Choice
 from django.shortcuts import render
 
@@ -26,14 +26,22 @@ def index(request):
     context = {"latest_question_list": latest_question_list}
     return render(request, "api/index.html", context)
 
+
 # 符合django视图的格式，含有HttpResponse才能被django识别为视图函数
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, "api/detail.html", {"question": question})
 
 
 def results(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Exception as e:
+        print("sf ",e)
+    return HttpResponse("You're voting on question %s." % question)
 
 
 def vote(request, question_id):
