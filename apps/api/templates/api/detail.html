@@ -5,6 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-    {{ question }}
+<h1>{{ question.name }}</h1>
+<ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+</ul>
+    <form action="{% url 'api:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+{#    forloop.counter 提示循环#}
+{#    所有针对内部 URL 的 POST 表单都应该使用 {% csrf_token %} 模板标签#}
+        <legend><h1>{{ question.name }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote">
+    </form>
 </body>
 </html>

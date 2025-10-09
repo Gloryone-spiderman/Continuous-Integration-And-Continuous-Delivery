@@ -7,10 +7,14 @@
 <body>
 {% if latest_question_list %}
     <ul>
+{#        {% for question in latest_question_list %}#}
+{#            <li><a href="/api/{{ question.id }}/">{{ question.name }}</a></li>#}
+{#        {% endfor %}#}
         {% for question in latest_question_list %}
-            <li><a href="/polls/{{ question.id }}/">{{ question.name }}</a></li>
+            <li><a href="{% url 'api:detail' question.id %}">{{ question.name }}</a></li>
         {% endfor %}
     </ul>
+
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
